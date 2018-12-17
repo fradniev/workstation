@@ -1,0 +1,22 @@
+{
+  "name": "workstation",
+  "version": "1.0.0",
+  "description": "Register when an employee gets to works and when the employee leaves",
+  "main": "\u001b[A\u001b[B",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fradniev/workstation.git"
+  },
+  "author": "Fradniev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fradniev/workstation/issues"
+  },
+  "homepage": "https://github.com/fradniev/workstation#readme",
+  "dependencies": {
+    "geolocation-marker": "^2.0.5"
+  }
+}
