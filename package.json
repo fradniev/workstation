@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/fradniev/workstation#readme",
   "dependencies": {
-    "geolocation-marker": "^2.0.5"
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "geolocation-marker": "^2.0.5",
+    "spherical-geometry-js": "^1.1.1"
   }
 }
