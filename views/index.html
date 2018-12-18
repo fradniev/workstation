@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap&sensor=false&libraries=geometry"></script>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -21,7 +22,9 @@
   </head>
   <body>
     <div id="map"></div>
+    
     <script>
+      var user = prompt("Please enter your name", "");
       // Note: This example requires that you consent to location sharing when
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
@@ -32,6 +35,7 @@
       var circles=[];
       var i=0;
       var markersToSave=[];
+      var inWork=false;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           //center: {lat: -34.397, lng: 150.644},
@@ -64,7 +68,9 @@
           placeMarker(event.latLng);
         });
         if (navigator.geolocation) {
-          checkLocation();
+          
+            checkLocation();
+          
         } else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
@@ -75,11 +81,15 @@
         circles[marker.indexNum].setMap(null);
         if (marker.indexNum<i && marker.indexNum>0) {
           var removed= markersToSave.splice(marker.indexNum, 1);
+          markers.splice(marker.indexNum,1);
         }else if(marker.indexNum==0){
+          markers.shift();
           var removed=markersToSave.shift();
         }else if (marker.indexNum==i) {
           var removed=markersToSave.pop();
+          markers.pop();
         }
+        i--;
         var send = JSON.stringify(markersToSave);
         $.ajax({
           type: 'post',
@@ -94,9 +104,9 @@
       }
       function placeMarker(location) {
         markers[i] = new google.maps.Marker({
-            position: location, 
-            map: map,
-            indexNum:i
+          position: location, 
+          map: map,
+          indexNum:i
         });
         markersToSave[i]={"lat":markers[i].getPosition().lat(),"lng":markers[i].getPosition().lng()};
 
@@ -128,33 +138,44 @@
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
+          'Error: The Geolocation service failed.' :
+          'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
       function checkLocation(){
         // Try HTML5 geolocation.
-        navigator.geolocation.watchPosition(function(position) {
+        var watchID = navigator.geolocation.getCurrentPosition(function(position) {
           window.setInterval(function(){
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
+            var save;
             infoWindow.setPosition(pos);
+            save =  JSON.stringify({pos:pos, user:user});
             for (var j = 0; j< markers.length; j++) {
               if (google.maps.geometry.spherical.computeDistanceBetween(
                 new google.maps.LatLng( markers[j].getPosition().lat(), markers[j].getPosition().lng() ),
                 new google.maps.LatLng( position.coords.latitude, position.coords.longitude )
-              ) <= 30) {
+              ) <= 50) {
                   infoWindow.setContent('In Workplace.');
-                break;
-              } else {
+                  if(!inWork){
+                    //console.log(inWork);
+                    var time=getDateTime();
+                    save = JSON.stringify({pos:pos, time:time, work:true, user:user});
+                    inWork=true;
+                  }
+                  break;
+                } else {
+                  if (inWork && j+1 == markers.length) {
+                    var time=getDateTime();
+                    save = JSON.stringify({pos:pos, time:time, work:false, user:user});
+                    inWork=false;
+                }
                 infoWindow.setContent('Away from Workplace.');
               }
             }
             infoWindow.open(map);
-            var save =  JSON.stringify(pos);
             map.setCenter(pos);
             $.ajax({
               type: 'post',
@@ -163,22 +184,40 @@
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               success: function (data) {
-                  return data;
+                return data;
               }
             });
           },5000);
         }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-        },{
+          handleLocationError(true, infoWindow, map.getCenter());
+        }/*,{
           enableHighAccuracy: true,
           timeout: 5000,
-          maximumAge: 0
-        });
+          maximumAge: 100
+        }*/);
       }
+      function getDateTime() {
+        var date = new Date();
 
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?callback=initMap&library=spherical">
+        var hour = date.getHours();
+        hour = (hour < 10 ? "0" : "") + hour;
+
+        var min  = date.getMinutes();
+        min = (min < 10 ? "0" : "") + min;
+
+        var sec  = date.getSeconds();
+        sec = (sec < 10 ? "0" : "") + sec;
+
+        var year = date.getFullYear();
+
+        var month = date.getMonth() + 1;
+        month = (month < 10 ? "0" : "") + month;
+
+        var day  = date.getDate();
+        day = (day < 10 ? "0" : "") + day;
+
+        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+      }
     </script>
   </body>
 </html>
