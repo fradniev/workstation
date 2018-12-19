@@ -127,24 +127,24 @@ function getSavedMarkers(){
   return JSON.parse(fs.readFileSync('markers.json', 'utf8'));
 }
 function getDateTime() {
-        var date = new Date();
+  var date = new Date();
 
-        var hour = date.getHours();
-        hour = (hour < 10 ? "0" : "") + hour;
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
 
-        var min  = date.getMinutes();
-        min = (min < 10 ? "0" : "") + min;
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
 
-        var sec  = date.getSeconds();
-        sec = (sec < 10 ? "0" : "") + sec;
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
 
-        var year = date.getFullYear();
+  var year = date.getFullYear();
 
-        var month = date.getMonth() + 1;
-        month = (month < 10 ? "0" : "") + month;
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
 
-        var day  = date.getDate();
-        day = (day < 10 ? "0" : "") + day;
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
 
-        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-      }
+  return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+}
