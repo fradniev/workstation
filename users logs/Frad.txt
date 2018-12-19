@@ -1,0 +1,12 @@
+User: Frad. In work: 2018:12:19:14:15:30
+User: Frad. In work: 2018:12:19:14:19:51
+User: Frad. In work: 2018:12:19:14:24:51
+User: Frad. In work: 2018:12:19:14:26:17
+User: Frad. In work: 2018:12:19:14:26:27
+User: Frad. In work: 2018:12:19:14:26:52
+User: Frad. In work: 2018:12:19:14:28:14
+User: Frad. Out of work: 2018:12:19:14:28:19
+User: Frad. In work: 2018:12:19:14:28:24
+User: Frad. Out of work: 2018:12:19:14:28:29
+User: Frad. In work: 2018:12:19:14:28:34
+User: Frad. In work: 2018:12:19:14:28:50

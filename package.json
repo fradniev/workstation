@@ -21,6 +21,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "geolocation-marker": "^2.0.5",
+    "socket.io": "^2.2.0",
     "spherical-geometry-js": "^1.1.1"
   }
 }
