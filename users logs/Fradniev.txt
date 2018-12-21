@@ -1,4 +1,2 @@
-User: Fradniev. Out of work: 2018:12:19:17:23:27
-User: Fradniev. In work: 2018:12:19:17:23:44
-User: Fradniev. Out of work: 2018:12:19:17:23:50
-User: Fradniev. In work: 2018:12:19:17:24:00
+User: Fradniev. In work: 2018:12:20:19:32:41
+User: Fradniev. Out of work: 2018:12:20:20:03:13

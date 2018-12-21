@@ -92,8 +92,9 @@ io.on('connection', function(socket){
     if(data.pos!=null){
       var markers = JSON.parse(fs.readFileSync('markers.json', 'utf8'));
       var j = 0;
+      var gps=true;
       while (j< markers.length) {
-        if (geometry.computeDistanceBetween(new geometry.LatLng( markers[j].lat, markers[j].lng ),new geometry.LatLng( data.pos.lat, data.pos.lng )) <= 50){
+        if (gps && geometry.computeDistanceBetween(new geometry.LatLng( markers[j].lat, markers[j].lng ),new geometry.LatLng( data.pos.lat, data.pos.lng )) <= 50){
           if (data.work!=null && data.work) {
             var save="User: "+data.user+". In work: "+getDateTime()+"\n";
             fs.appendFile('users logs/'+data.user+'.txt', save, function (err) {
