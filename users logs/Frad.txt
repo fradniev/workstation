@@ -10,3 +10,11 @@ User: Frad. In work: 2018:12:19:14:28:24
 User: Frad. Out of work: 2018:12:19:14:28:29
 User: Frad. In work: 2018:12:19:14:28:34
 User: Frad. In work: 2018:12:19:14:28:50
+User: Frad. In work: 2018:12:26:15:18:55
+User: Frad. Out of work: 2018:12:26:15:19:00
+User: Frad. In work: 2018:12:26:15:20:23
+User: Frad. In work: 2018:12:26:15:21:59
+User: Frad. In work: 2018:12:26:15:22:51
+User: Frad. In work: 2018:12:26:15:24:02
+User: Frad. Out of work: 2018:12:26:15:24:12
+User: Frad. Out of work: 2018:12:26:15:39:38

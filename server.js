@@ -2,9 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const app = express()
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const httpsOptions = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+}
+var https = require('https').createServer(httpsOptions, app);
+//var http = require('http').Server(app)
+var io = require('socket.io')(https);
 const geometry = require('spherical-geometry-js');
+const port = 3000;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,7 +37,6 @@ app.post('/', function (req, res) {
 });
 
 app.post('/position', function (req, res) {
-  console.log(req.body);
   if(req.body.pos!=null){
     var markers = JSON.parse(fs.readFileSync('markers.json', 'utf8'));
     var j = 0;
@@ -81,11 +86,14 @@ io.on('connection', function(socket){
         break;
       }
     }
-    var save="User: "+name+". Out of work: "+getDateTime()+"\n";
+    var logoutTime=getDateTime();
+    var save="User: "+name+". Out of work: "+logoutTime+"\n";
     fs.appendFile('users logs/'+name+'.txt', save, function (err) {
       if (err) throw err;
         console.log('Saved!');
     });
+    console.log(getTimePassed(socket.loginTime, logoutTime));
+
   });
   socket.on('position', function(dat){
     var data = JSON.parse(dat);
@@ -96,7 +104,9 @@ io.on('connection', function(socket){
       while (j< markers.length) {
         if (gps && geometry.computeDistanceBetween(new geometry.LatLng( markers[j].lat, markers[j].lng ),new geometry.LatLng( data.pos.lat, data.pos.lng )) <= 50){
           if (data.work!=null && data.work) {
-            var save="User: "+data.user+". In work: "+getDateTime()+"\n";
+            console.log("In!");
+            socket.loginTime=getDateTime();
+            var save="User: "+data.user+". In work: "+socket.loginTime+"\n";
             fs.appendFile('users logs/'+data.user+'.txt', save, function (err) {
               if (err) throw err;
               console.log('Saved!');
@@ -106,11 +116,14 @@ io.on('connection', function(socket){
         } 
         else {
           if(data.work!=null && !data.work && j+1==markers.length){
-            var save="User: "+data.user+". Out of work: "+getDateTime()+"\n";
+            console.log("Out!");
+            var logoutTime=getDateTime();
+            var save="User: "+data.user+". Out of work: "+logoutTime+"\n";
             fs.appendFile('users logs/'+data.user+'.txt', save, function (err) {
               if (err) throw err;
               console.log('Saved!');
             });
+            console.log(getTimePassed(socket.loginTime, logoutTime));
           }
         }
         j++
@@ -120,8 +133,8 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+https.listen(port, function(){
+  console.log('listening on *: '+port);
 });
 
 function getSavedMarkers(){
@@ -148,4 +161,8 @@ function getDateTime() {
   day = (day < 10 ? "0" : "") + day;
 
   return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+}
+function getTimePassed(loginDate, logoutDate){
+  var diff = Math.abs(new Date(loginDate) - new Date(logoutDate));
+  return diff;
 }
