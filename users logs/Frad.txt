@@ -1,20 +1,13 @@
-User: Frad. In work: 2018:12:19:14:15:30
-User: Frad. In work: 2018:12:19:14:19:51
-User: Frad. In work: 2018:12:19:14:24:51
-User: Frad. In work: 2018:12:19:14:26:17
-User: Frad. In work: 2018:12:19:14:26:27
-User: Frad. In work: 2018:12:19:14:26:52
-User: Frad. In work: 2018:12:19:14:28:14
-User: Frad. Out of work: 2018:12:19:14:28:19
-User: Frad. In work: 2018:12:19:14:28:24
-User: Frad. Out of work: 2018:12:19:14:28:29
-User: Frad. In work: 2018:12:19:14:28:34
-User: Frad. In work: 2018:12:19:14:28:50
-User: Frad. In work: 2018:12:26:15:18:55
-User: Frad. Out of work: 2018:12:26:15:19:00
-User: Frad. In work: 2018:12:26:15:20:23
-User: Frad. In work: 2018:12:26:15:21:59
-User: Frad. In work: 2018:12:26:15:22:51
-User: Frad. In work: 2018:12:26:15:24:02
-User: Frad. Out of work: 2018:12:26:15:24:12
-User: Frad. Out of work: 2018:12:26:15:39:38
+User: Frad. Out of work: 2019:01:14:13:39:24
+User: Frad. In work: 2019:01:14:13:39:47
+User: Frad. Out of work: 2019:01:14:13:41:04
+User: Frad. In work: 2019:01:14:13:41:48
+User: Frad. Out of work: 2019:01:14:13:46:57
+User: Frad. In work: 2019:01:14:14:02:44
+User: Frad. Out of work: 2019:01:14:14:02:54
+User: Frad. In work: 2019:01:14:14:03:16
+User: Frad. Out of work: 2019:01:14:14:06:46
+User: Frad. In work: 2019:01:14:14:07:02
+User: Frad. Out of work: 2019:01:14:14:07:09
+User: Frad. In work: 2019:01:14:14:07:44
+User: Frad. Out of work: 2019:01:14:14:33:05

@@ -60,4 +60,14 @@ typings/
 # next.js build output
 .next
 
-clientside/workstation/
+# Node
+clientside/workstation/npm-debug.log
+clientside/workstation/node_modules
+
+# Cordova
+clientside/workstation/platforms
+clientside/workstation/plugins
+
+# res
+clientside/workstation/resources/signing
+clientside/workstation/res

@@ -6,9 +6,9 @@ const httpsOptions = {
   key: fs.readFileSync('./key.pem'),
   cert: fs.readFileSync('./cert.pem')
 }
-var https = require('https').createServer(httpsOptions, app);
-//var http = require('http').Server(app)
-var io = require('socket.io')(https);
+//var https = require('https').createServer(httpsOptions, app);
+var http = require('http').Server(app)
+var io = require('socket.io')(http);
 const geometry = require('spherical-geometry-js');
 const port = 3000;
 
@@ -70,6 +70,7 @@ var users = [];
 
 io.on('connection', function(socket){
   socket.on('savedMarkers', function(){
+    console.log("Markers sended!");
     socket.emit("savedMarkers", getSavedMarkers());
   });
   socket.on('saveMarkersFile', function(markers){
@@ -133,7 +134,7 @@ io.on('connection', function(socket){
   });
 });
 
-https.listen(port, function(){
+http.listen(port, function(){
   console.log('listening on *: '+port);
 });
 
