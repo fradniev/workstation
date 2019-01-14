@@ -29,7 +29,7 @@
     <div id="map"></div>
     
     <script>
-      var socket = io("http://192.168.0.21:3000");
+      var socket = io("http://192.168.1.47:3000");
       socket.emit('savedMarkers', true);
       var savedMarkers;
       socket.on('savedMarkers', function(data){
